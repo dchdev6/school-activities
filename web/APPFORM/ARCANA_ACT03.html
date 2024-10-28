@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>APPLICATION FORM</title>
+</head>
+<body>
+    <form>
+        <div>
+            <label for="form">Application Form</label>
+<!--------------------------------------------PERSONAL INFORMATION--------------------------------------------------->
+        <fieldset>
+            <legend>Personal Information</legend>
+                <label for="name">Name:</label>
+                <br>
+                <input type="text" id="name" name="name" size="30" placeholder="Taro Yamada">
+                <br>
+                <label for="email">Email:</label>
+                <br>
+                <input type="text" id="email" name="email" size="50" placeholder="abc@gmail.com">
+                <br>
+                <label for="address">Address:</label>
+                <br>
+                <input type="text" id="address" name="address" size="90" placeholder="Unit5, Cornerstone, Mahogany Street. Banilad, Cebu City, Cebu">
+                <br>
+                <label for="zipcode">Zip Code:</label>
+                <br>
+                <input type="number" id="zipcode" name="zipcode" placeholder="6000">
+        </fieldset>
+
+<!--------------------------------------------EDUCATIONAL BACKGROUND-------------------------------------------->
+        <fieldset>
+            <legend>Educational Background</legend>
+                <label for="elementary">Elementary:</label>
+                <input type="text" id="elementary" name="elementary" size="50">
+                <br>
+                <label for="Secondary">Secondary:</label>
+                <input type="text" id="Secondary" name="Secondary" size="50">
+                <br>
+                <label for="Tertiary">Tertiary:</label>
+                <input type="text" id="Tertiary" name="Tertiary" size="50">
+                <br>
+                <label for="Master">Master's Degree:</label>
+                <input type="text" id="Master" name="Master">
+        </fieldset>
+<!---------------------------------------------HOBBIES AND TALENTS---------------------------------------------->
+        <fieldset>
+            <legend>Hobbies & Talents</legend>
+                <label for="hobby">Hobbies</label>
+                <br>
+                <br>
+                    <input type="radio" Name="hobby" value="Reading">Reading
+                    <input type="radio" Name="hobby" value="Writing">Writing
+                    <input type="radio" Name="hobby" value="Coding">Coding
+                <br>
+                <br>
+                <label for="Talents">Talents</label>
+                <br>
+                <br>
+                    <input type="checkbox" name="Talents" id="Talents">Singing
+                    <br>
+                    <input type="checkbox" name="Talents" id="Talents">Dancing
+                    <br>
+                    <input type="checkbox" name="Talents" id="Talents">Acting
+                    <br>
+                    <input type="checkbox" name="Talents" id="Talents">Drawing
+                <br>
+                <br>
+        </fieldset>
+<!---------------------------------------------OTHER INFORMATION------------------------------------------------->
+        <fieldset>
+            <legend>Other Information</legend>
+                <label for="Gender">Gender</label>
+                <br>
+                    <input type="radio" name="Gender" id="Gender">Male
+                    <input type="radio" name="Gender" id="Gender">Female
+                <br>
+                <br>
+                <label for="Bio">Boiography:</label>
+                <br>
+                    <textarea name="Bio" id="" cols="40" rows="5" reisize="none"></textarea> 
+        </fieldset>
+<!-------------------------------------------------REVIEWS----------------------------------------------------------->
+        <fieldset>
+            <legend>Your Review</legend>
+            <br>
+        <label for="Review">How did you hear about us?</label>
+        <select name="Review" id="Review">
+            <option value="Google">Google</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Twitter">Twitter</option>
+        </select>
+            <br>
+            <br>
+                <label for="Question">Would you still visit again?</label>
+                <br>
+                    <input type="radio" name="Question" id="Question">Yes
+                    <input type="radio" name="Question" id="Question">No
+                    <input type="radio" name="Question" id="Question">Maybe
+                <br>
+                <br>
+                    <label for="Comments">Comments:</label>
+                <br>
+                    <textarea name="Comments" id="" cols="40" rows="5" reisize="none"></textarea>
+                <br>
+                    <label for="Signup"></label>
+                    <input type="checkbox" name="Signup" id="Signup">Sign me up for email updates
+                <br>
+                    <button>Submit</button>
+                    <!-- use this code if new window <input TYPE="BUTTON" VALUE="Submit" onClick="display();">-->
+        </fieldset>
+    </div>
+</form>
+</body>
+</html>
