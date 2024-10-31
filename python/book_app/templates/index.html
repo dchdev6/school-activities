@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Information</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        
+        .container {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+        }
+        .form-container {
+            flex: 1; 
+            margin-right: 20px; 
+        }
+        .table-container {
+            flex: 2; 
+        }
+        th, td {
+            text-align: left; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="w3-card-4 w3-margin w3-round-xlarge">
+    <div class="w3-container w3-blue">
+        <h2>BOOK INFORMATION</h2>
+    </div>
+
+    <div class="container w3-container w3-margin-top">
+        <div class="form-container">
+            <form action="/add" method="POST" class="w3-card-4 w3-padding w3-margin-bottom w3-round-xlarge">
+                <div>
+                    <label for="isbn">ISBN</label>
+                    <input class="w3-input w3-border w3-round-large" type="text" name="isbn" required>
+                </div>
+                <div>
+                    <label for="title">Title</label>
+                    <input class="w3-input w3-border w3-round-large" type="text" name="title" required>
+                </div>
+                <div>
+                    <label for="author">Author</label>
+                    <input class="w3-input w3-border w3-round-large" type="text" name="author" required>
+                </div>
+                <div>
+                    <label for="copyright">Copyright</label>
+                    <input class="w3-input w3-border w3-round-large" type="number" name="copyright">
+                </div>
+                <div>
+                    <label for="edition">Edition</label>
+                    <input class="w3-input w3-border w3-round-large" type="text" name="edition">
+                </div>
+                <div>
+                    <label for="price">Price</label>
+                    <input class="w3-input w3-border w3-round-large" type="number" name="price" step="0.01">
+                </div>
+                <div>
+                    <label for="qty">Qty</label>
+                    <input class="w3-input w3-border w3-round-large" type="number" name="qty">
+                    <button class="w3-btn w3-blue w3-margin-top w3-round-large" style="width:49%" type="submit">Save</button>
+                    <button class="w3-btn w3-red w3-margin-top w3-round-large" style="width:49%" type="reset">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="table-container w3-container">
+            <table class="w3-table w3-bordered w3-striped">
+                <tr>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Copyright</th>
+                    <th>Edition</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.copyright }}</td>
+                    <td>{{ book.edition }}</td>
+                    <td>{{ book.price }}</td>
+                    <td>{{ book.qty }}</td>
+                    <td>{{ book.price * book.qty }}</td> <!-- Calculating Total -->
+                    <td>
+                        <div style="display: flex; flex-direction: row; align-items: center;">
+                            <form action="/edit/{{ book.id }}" method="POST" style="margin-right: 5px;">
+                                <button class="w3-button w3-small w3-blue w3-round-large">\</button>
+                            </form>
+                            <form action="/delete/{{ book.id }}" method="POST">
+                                <button class="w3-button w3-small w3-red w3-round-large">X</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
