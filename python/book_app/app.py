@@ -44,6 +44,8 @@ def edit_book(id):
         db.session.commit()
     return redirect(url_for('index'))
 
+
+
 @app.route('/delete/<int:id>', methods=['POST'])
 def delete_book(id):
     book = Book.query.get(id)
@@ -51,6 +53,19 @@ def delete_book(id):
         db.session.delete(book)
         db.session.commit()
     return redirect(url_for('index'))
+
+@app.route('/update/<int:id>', methods=['POST'])
+def update_book(id):
+    book = Book.query.get(id)
+    book.isbn = request.form['isbn']
+    book.title = request.form['title']
+    book.author = request.form['author']
+    book.copyright = request.form['copyright']
+    book.edition = request.form['edition']
+    book.price = request.form['price']
+    book.qty = request.form['qty']
+    db.session.commit()
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run(debug=True)

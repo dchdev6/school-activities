@@ -6,23 +6,33 @@
     <title>Book Information</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        
         .container {
-            display: flex; 
-            justify-content: space-between; 
-            align-items: flex-start; 
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
         .form-container {
-            flex: 1; 
-            margin-right: 20px; 
+            flex: 1;
+            margin-right: 5px;
         }
         .table-container {
-            flex: 2; 
+            flex: 2;
         }
         th, td {
-            text-align: left; 
+            text-align: left;
         }
     </style>
+    <script>
+        function toggleEdit(bookId) {
+            const row = document.getElementById('row-' + bookId);
+            const displayFields = row.querySelectorAll('.display-field');
+            const editFields = row.querySelectorAll('.edit-field');
+            const isEditing = row.classList.toggle('editing');
+
+            displayFields.forEach(field => field.style.display = isEditing ? 'none' : 'table-cell');
+            editFields.forEach(field => field.style.display = isEditing ? 'table-cell' : 'none');
+        }
+    </script>
 </head>
 <body>
 
@@ -33,7 +43,7 @@
 
     <div class="container w3-container w3-margin-top">
         <div class="form-container">
-            <form action="/add" method="POST" class="w3-card-4 w3-padding w3-margin-bottom w3-round-xlarge">
+            <form action="/add" method="POST" class="w3-card-1 w3-padding w3-margin-bottom w3-round-xlarge">
                 <div>
                     <label for="isbn">ISBN</label>
                     <input class="w3-input w3-border w3-round-large" type="text" name="isbn" required>
@@ -68,7 +78,7 @@
         </div>
 
         <div class="table-container w3-container">
-            <table class="w3-table w3-bordered w3-striped">
+            <table class="w3-table w3-bordered">
                 <tr>
                     <th>ISBN</th>
                     <th>Title</th>
@@ -81,31 +91,92 @@
                     <th>Action</th>
                 </tr>
                 {% for book in books %}
-                <tr>
-                    <td>{{ book.isbn }}</td>
-                    <td>{{ book.title }}</td>
-                    <td>{{ book.author }}</td>
-                    <td>{{ book.copyright }}</td>
-                    <td>{{ book.edition }}</td>
-                    <td>{{ book.price }}</td>
-                    <td>{{ book.qty }}</td>
-                    <td>{{ book.price * book.qty }}</td> <!-- Calculating Total -->
-                    <td>
-                        <div style="display: flex; flex-direction: row; align-items: center;">
-                            <form action="/edit/{{ book.id }}" method="POST" style="margin-right: 5px;">
-                                <button class="w3-button w3-small w3-blue w3-round-large">\</button>
-                            </form>
-                            <form action="/delete/{{ book.id }}" method="POST">
-                                <button class="w3-button w3-small w3-red w3-round-large">X</button>
-                            </form>
-                        </div>
+                <tr id="row-{{ book.id }}">
+                    <!-- ISBN -->
+                    <td class="display-field">{{ book.isbn }}</td>
+                    <td class="edit-field" style="display: none;">
+                        <input type="text" name="isbn" value="{{ book.isbn }}" class="w3-input w3-border">
                     </td>
-                </tr>
+                
+                    <!-- Title -->
+                    <td class="display-field">{{ book.title }}</td>
+                    <td class="edit-field" style="display: none;">
+                        <input type="text" name="title" value="{{ book.title }}" class="w3-input w3-border">
+                    </td>
+                
+                    <!-- Author -->
+                    <td class="display-field">{{ book.author }}</td>
+                    <td class="edit-field" style="display: none;">
+                        <input type="text" name="author" value="{{ book.author }}" class="w3-input w3-border">
+                    </td>
+                
+                    <!-- Copyright -->
+                    <td class="display-field">{{ book.copyright }}</td>
+                    <td class="edit-field" style="display: none;">
+                        <input type="number" name="copyright" value="{{ book.copyright }}" class="w3-input w3-border">
+                    </td>
+                
+                    <!-- Edition -->
+                    <td class="display-field">{{ book.edition }}</td>
+                    <td class="edit-field" style="display: none;">
+                        <input type="text" name="edition" value="{{ book.edition }}" class="w3-input w3-border">
+                    </td>
+                
+                    <!-- Price -->
+                    <td class="display-field">{{ book.price }}</td>
+                    <td class="edit-field" style="display: none;">
+                        <input type="number" name="price" value="{{ book.price }}" step="0.01" class="w3-input w3-border">
+                    </td>
+                
+                    <!-- Quantity -->
+                    <td class="display-field">{{ book.qty }}</td>
+                    <td class="edit-field" style="display: none;">
+                        <input type="number" name="qty" value="{{ book.qty }}" class="w3-input w3-border">
+                    </td>
+                
+                    <!-- Total (Not Editable) -->
+                    <td class="display-field">{{ book.price * book.qty }}</td>
+                
+                    <!-- Action Buttons -->
+                    <td>
+                        <!-- Edit Button -->
+                        <button class="w3-button w3-small w3-blue w3-round-large" onclick="toggleEdit('{{ book.id }}')">Edit</button>
+                
+                        <!-- Save Button (shows only when editing) -->
+                        <form action="/update/{{ book.id }}" method="POST" id="edit-form-{{ book.id }}" style="display: inline;">
+                            <!-- Include all input fields in the form for submission -->
+                            <input type="hidden" name="isbn" value="{{ book.isbn }}" required>
+                            <input type="hidden" name="title" value="{{ book.title }}" required>
+                            <input type="hidden" name="author" value="{{ book.author }}" required>
+                            <input type="hidden" name="copyright" value="{{ book.copyright }}">
+                            <input type="hidden" name="edition" value="{{ book.edition }}">
+                            <input type="hidden" name="price" value="{{ book.price }}" step="0.01">
+                            <input type="hidden" name="qty" value="{{ book.qty }}">
+                            <button class="w3-button w3-small w3-green w3-round-large edit-field" style="display: none;" type="submit">Save</button>
+                        </form>
+                
+                        <!-- Delete Button -->
+                        <form action="/delete/{{ book.id }}" method="POST" style="display: inline;">
+                            <button class="w3-button w3-small w3-red w3-round-large" type="submit" style="width: 50px;">Delete</button>
+                        </form>
+                    </td>
+                </tr>                
                 {% endfor %}
             </table>
         </div>
     </div>
 </div>
+<script>
+    function toggleEdit(id) {
+    // Get all display and edit fields for the row
+    const row = document.getElementById(`row-${id}`);
+    const displayFields = row.querySelectorAll('.display-field');
+    const editFields = row.querySelectorAll('.edit-field');
 
+    // Toggle visibility
+    displayFields.forEach(field => field.style.display = field.style.display === 'none' ? '' : 'none');
+    editFields.forEach(field => field.style.display = field.style.display === 'none' ? '' : 'none');
+}
+</script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+pip install virtualenv
+
+virtualenv venv
+
+venv\scripts\activate
+
+pip install flask
+
+(i used sqlalchemy for my db, can be found in instances folder)
+pip install flask_sqlalchemy
